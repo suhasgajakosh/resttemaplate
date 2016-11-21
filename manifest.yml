@@ -1,0 +1,6 @@
+applications:
+- name: rest
+  memory: 512M
+  host: rest
+  path: target\rest-0.0.1-SNAPSHOT.war
+  buildpack: java_buildpack
