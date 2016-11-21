@@ -2,10 +2,13 @@ package com.rest.template.controller;
 
 import java.util.List;
 
+import javax.ws.rs.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,19 +24,30 @@ public class ContactConroller {
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
 	@ResponseBody
 	public void saveContact(@RequestBody Contact contact) {
-		if (null != contact) {
-			System.out.println(contact.toString());
-			contactRepository.save(contact);
-		} else {
-			System.out.println("contact not received");
-		}
-		
+		contactRepository.save(contact);
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Contact> getContacts() {
 		return contactRepository.findAll();
+	}
+	
+	@RequestMapping(value = "/contact/{id}", method = RequestMethod.GET)
+	public Contact getOneContact(@PathParam(value = "id") long contactId) {
+		return contactRepository.findOne(contactId);
+	}
+	
+	@RequestMapping(value="/contact", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteContact(@RequestParam(value = "id") long contactId ) {
+		contactRepository.delete(contactId);
+	}
+	
+	@RequestMapping(value="/contact", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateContact(@RequestParam(value = "id") long contactId, @RequestBody Contact contact)  {
+		
 	}
 
 }
