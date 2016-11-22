@@ -32,22 +32,23 @@ public class ContactConroller {
 	public List<Contact> getContacts() {
 		return contactRepository.findAll();
 	}
-	
+
 	@RequestMapping(value = "/contact/{id}", method = RequestMethod.GET)
+	@ResponseBody
 	public Contact getOneContact(@PathParam(value = "id") long contactId) {
 		return contactRepository.findOne(contactId);
 	}
-	
-	@RequestMapping(value="/contact", method = RequestMethod.DELETE)
+
+	@RequestMapping(value = "/contact", method = RequestMethod.DELETE)
 	@ResponseBody
-	public void deleteContact(@RequestParam(value = "id") long contactId ) {
+	public void deleteContact(@RequestParam(value = "id") long contactId) {
 		contactRepository.delete(contactId);
 	}
-	
-	@RequestMapping(value="/contact", method = RequestMethod.PUT)
+
+	@RequestMapping(value = "/contact", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateContact(@RequestParam(value = "id") long contactId, @RequestBody Contact contact)  {
-		
+	public void updateContact(@RequestBody Contact contact) {
+		contactRepository.save(contact);
 	}
 
 }
