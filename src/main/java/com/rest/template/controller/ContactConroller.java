@@ -2,8 +2,6 @@ package com.rest.template.controller;
 
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,15 +31,15 @@ public class ContactConroller {
 		return contactRepository.findAll();
 	}
 
-	@RequestMapping(value = "/contact/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/contact/one", method = RequestMethod.GET)
 	@ResponseBody
-	public Contact getOneContact(@PathParam(value = "id") long contactId) {
+	public Contact getOneContact(@RequestParam(value = "id") Long contactId) {
 		return contactRepository.findOne(contactId);
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.DELETE)
 	@ResponseBody
-	public void deleteContact(@RequestParam(value = "id") long contactId) {
+	public void deleteContact(@RequestParam(value = "id") Long contactId) {
 		contactRepository.delete(contactId);
 	}
 

@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="contact", schema="contacts")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Contact {
 	
 	@Id
@@ -76,6 +79,55 @@ public class Contact {
 		this.last_name = last_name;
 		this.phone_number = phone_number;
 		this.email_address = email_address;
+	}
+
+	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email_address == null) ? 0 : email_address.hashCode());
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		if (email_address == null) {
+			if (other.email_address != null)
+				return false;
+		} else if (!email_address.equals(other.email_address))
+			return false;
+		if (first_name == null) {
+			if (other.first_name != null)
+				return false;
+		} else if (!first_name.equals(other.first_name))
+			return false;
+		if (id != other.id)
+			return false;
+		if (last_name == null) {
+			if (other.last_name != null)
+				return false;
+		} else if (!last_name.equals(other.last_name))
+			return false;
+		if (phone_number == null) {
+			if (other.phone_number != null)
+				return false;
+		} else if (!phone_number.equals(other.phone_number))
+			return false;
+		return true;
 	}
 
 	@Override
