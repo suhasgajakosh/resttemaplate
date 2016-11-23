@@ -7,9 +7,6 @@ import javax.persistence.Id;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 @Entity
 public class Contact extends ResourceSupport {
 
@@ -24,7 +21,7 @@ public class Contact extends ResourceSupport {
 	private String phone_number;
 
 	private String email_address;
-		
+
 	public Long getContact_id() {
 		return contact_id;
 	}
@@ -68,10 +65,7 @@ public class Contact extends ResourceSupport {
 	protected Contact() {
 	}
 
-	@JsonCreator
-	public Contact(@JsonProperty("contact_id") long contact_id, @JsonProperty("first_name") String first_name,
-			@JsonProperty("last_name") String last_name, @JsonProperty("phone_number") String phone_number,
-			@JsonProperty("email_address") String email_address) {
+	public Contact(long contact_id, String first_name, String last_name, String phone_number, String email_address) {
 		this.contact_id = contact_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -127,8 +121,8 @@ public class Contact extends ResourceSupport {
 
 	@Override
 	public String toString() {
-		return "Contact [contact_id=" + contact_id + ", first_name=" + first_name + ", last_name=" + last_name + ", phone_number="
-				+ phone_number + ", email_address=" + email_address + "]";
+		return "Contact [contact_id=" + contact_id + ", first_name=" + first_name + ", last_name=" + last_name
+				+ ", phone_number=" + phone_number + ", email_address=" + email_address + "]";
 	}
 
 }
