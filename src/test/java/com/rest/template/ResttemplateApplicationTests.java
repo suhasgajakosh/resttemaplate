@@ -1,4 +1,4 @@
-/*package com.rest.template;
+package com.rest.template;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,4 +14,3 @@ public class ResttemplateApplicationTests {
 	}
 
 }
-*/
