@@ -1,32 +1,36 @@
 package com.rest.template.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.hateoas.ResourceSupport;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 @Entity
-@Table(name="contact", schema="contacts")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Contact {
-	
+public class Contact extends ResourceSupport {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(name="first_name")
+	private Long contact_id;
+
 	private String first_name;
-	
-	public long getId() {
-		return id;
+
+	private String last_name;
+
+	private String phone_number;
+
+	private String email_address;
+		
+	public Long getContact_id() {
+		return contact_id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setContact_id(Long contact_id) {
+		this.contact_id = contact_id;
 	}
 
 	public String getFirst_name() {
@@ -61,36 +65,27 @@ public class Contact {
 		this.email_address = email_address;
 	}
 
-	@Column(name="last_name")
-	private String last_name;
-	
-	@Column(name="phone_number")
-	private String phone_number;
-	
-	@Column(name="email_address")
-	private String email_address;
-	
-	protected Contact() {}
+	protected Contact() {
+	}
 
-	public Contact(long id, String first_name, String last_name, String phone_number, String email_address) {
-		super();
-		this.id = id;
+	@JsonCreator
+	public Contact(@JsonProperty("contact_id") long contact_id, @JsonProperty("first_name") String first_name,
+			@JsonProperty("last_name") String last_name, @JsonProperty("phone_number") String phone_number,
+			@JsonProperty("email_address") String email_address) {
+		this.contact_id = contact_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.phone_number = phone_number;
 		this.email_address = email_address;
 	}
 
-	
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email_address == null) ? 0 : email_address.hashCode());
 		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (int) (contact_id ^ (contact_id >>> 32));
 		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
 		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
 		return result;
@@ -115,7 +110,7 @@ public class Contact {
 				return false;
 		} else if (!first_name.equals(other.first_name))
 			return false;
-		if (id != other.id)
+		if (contact_id != other.contact_id)
 			return false;
 		if (last_name == null) {
 			if (other.last_name != null)
@@ -132,7 +127,7 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", phone_number="
+		return "Contact [contact_id=" + contact_id + ", first_name=" + first_name + ", last_name=" + last_name + ", phone_number="
 				+ phone_number + ", email_address=" + email_address + "]";
 	}
 
