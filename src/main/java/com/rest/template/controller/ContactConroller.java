@@ -3,16 +3,12 @@ package com.rest.template.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.rest.template.entity.Contact;
 import com.rest.template.repository.ContactRepository;
@@ -37,13 +33,18 @@ public class ContactConroller {
 
 	@RequestMapping(value = "/contact/one", method = RequestMethod.GET)
 	@ResponseBody
-	public HttpEntity<Contact> getOneContact(@RequestParam(value = "id") Long contactId) {
-		Contact contact = contactRepository.findOne(contactId);
+	public Contact getContacts(@RequestParam(value = "id") Long contactId) {
 
-		String url = "http://localhost:8080/contact/one?id=" + contactId;
-		Link link = new Link(url , "self");
+		String linkRel = "self";
+		Link link = null;
+
+		link = new Link("http://localhost:8080/contact/one?id=" + contactId, linkRel);
+		Contact contact = contactRepository.findOne(contactId);
 		contact.add(link);
-		return new ResponseEntity<Contact>(contact, HttpStatus.OK);
+
+		contact.add(link);
+
+		return contact;
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.DELETE)
